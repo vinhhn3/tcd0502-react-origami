@@ -34,7 +34,7 @@ const Share = () => {
         </div>
         <div>
           <h2>Last 3 post on your wall</h2>
-          <Posts posts={privatePosts} />
+          <Posts posts={privatePosts.slice(-3).reverse()} />
           <button onClick={onLogout}>Logout</button>
         </div>
       </div>

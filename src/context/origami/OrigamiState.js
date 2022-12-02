@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import OrigamiApi from "../../api/OrigamiApi";
 import {
   GET_ALL_POSTS,
@@ -34,7 +34,14 @@ const OrigamiState = (props) => {
     ],
   };
 
-  const [state, dispatch] = useReducer(OrigamiReducer, initialState);
+  const [state, dispatch] = useReducer(OrigamiReducer, initialState, () => {
+    const localState = localStorage.getItem("localState");
+    return localState ? JSON.parse(localState) : initialState;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("localState", JSON.stringify(state));
+  }, [state]);
 
   const origamiApi = new OrigamiApi();
 
